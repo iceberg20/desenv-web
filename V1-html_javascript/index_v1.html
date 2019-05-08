@@ -12,78 +12,113 @@
     <h3 style="color:white">Todo List</h3>
   </div>
 
-  <table  border="1" border-collapse="collapse" style="width:50%">
+  <table  border="1" border-collapse="collapse" style="width:35%">
   <tr>
     <th colspan="4" align="left"">A fazer</th>
   </tr>
   <tr>
     <td>Estudar</td>
-    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td> 
     <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
     <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
   </tr>
   <tr>
     <td>Ir para academia</td> 
-    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td> 
     <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
     <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
   </tr>
   <tr>
     <td>Assitir Game of thornes</td> 
-    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td> 
     <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
     <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><input type="text" name="lname"></td> 
+    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td>
+
   </tr>
 </table>
 
 
   </br>
 
-  <table  border="1" border-collapse="collapse" style="width:50%">
+  <table  border="1" border-collapse="collapse" style="width:35%">
   <tr>
-    <th colspan="4" align="left">Feito</th>
+    <th colspan="3" align="left">Feito</th>
   </tr>
   <tr>
     <td>Pagar Internet</td>
-    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td> 
     <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
     <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
   </tr>
   <tr>
     <td>Alugar carro</td> 
-    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td> 
+
     <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
     <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
   </tr>
   <tr>
     <td>Comprar remédio</td> 
-    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td> 
     <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
     <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
   </tr>
 </table>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-<script src="offcanvas.js"></script>
+<div id="debug"> </div>
 
 <script> 
 
-// alert("Você tem 3 tarefas para hoje");
+ 
 
 
 
-function myFunction() {
-  // Get the checkbox
-  var checkBox = document.getElementById("myCheck");
-  // Get the output text
-  var elemento = document.getElementById("tarefa");
 
-  // If the checkbox is checked, display the output text
-  if (checkBox.checked == true){
-    elemento.style.display = "none";
-  } 
-}
+  var t_fazer = tarefas_fazer();
+  var t_feita;
+  
+  // Retina lista de tarefas a fazer
+  function tarefas_fazer(){
+    var tarefas = []; 
+
+    for (i = 0; i < 10; i++) {
+      tarefas[i] = {nome: "Estudar" + i, situacao: false};
+    }
+
+    return tarefas;
+  }
+
+  // Utils
+  function mostrarListaTarefas(lista){
+    document.getElementById("debug").innerHTML += "</br>";
+    for (i = 0; i < lista.length; i++) {
+      document.getElementById("debug").innerHTML +=  lista[i].nome+ " " + lista[i].situacao + "</br>";
+    } 
+  }
+
+  mostrarListaTarefas(t_fazer);
+
+
+
+
+
+
+
+    //  var tarefa = new Tarefa('Estudar', true);
+     // alert(tarefa.feito);
+
+
+
+
+// function myFunction() {
+//   // Get the checkbox
+//   var checkBox = document.getElementById("myCheck");
+//   // Get the output text
+//   var elemento = document.getElementById("tarefa");
+
+//   // If the checkbox is checked, display the output text
+//   if (checkBox.checked == true){
+//     elemento.style.display = "none";
+//   } 
+// }
 
 
 </script>
