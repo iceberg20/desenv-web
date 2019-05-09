@@ -13,29 +13,15 @@
   </div>
 
   <table  border="1" border-collapse="collapse" style="width:35%">
-  <tr>
-    <th colspan="4" align="left"">A fazer</th>
-  </tr>
-  <tr>
-    <td>Estudar</td>
-    <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
-    <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
-  </tr>
-  <tr>
-    <td>Ir para academia</td> 
-    <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
-    <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
-  </tr>
-  <tr>
-    <td>Assitir Game of thornes</td> 
-    <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
-    <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
-  </tr>
-  <tr>
-    <td colspan="2"><input type="text" name="lname"></td> 
-    <td><img src="add.jpg" alt="Smiley face" height="20" width="20"></td>
-
-  </tr>
+  <thead>
+    <tr>
+      <th colspan="1" align="left"">A fazer</th>
+      <th colspan="1" align="left"">Finalizar Tarefa</th>
+      <th colspan="2" align="left""></th>
+    </tr>
+  </thead>
+    <tbody id="todoTableBody">
+    </tbody>
 </table>
 
 
@@ -65,22 +51,33 @@
 
 <div id="debug"> </div>
 
-<script> 
+<script>
+  var t_fazer = tarefas_fazer();
+  var t_feita;
+
+desenharTabela();
+
+var id = 10;
+function id_increment(){
+  id+=1;
+}
+function id_generate(){
+  return id+=1;
+}  
 
  
 
 
 
 
-  var t_fazer = tarefas_fazer();
-  var t_feita;
+
   
   // Retina lista de tarefas a fazer
   function tarefas_fazer(){
     var tarefas = []; 
 
     for (i = 0; i < 10; i++) {
-      tarefas[i] = {nome: "Estudar" + i, situacao: false};
+      tarefas[i] = {id: i+1, nome: "Estudar" + i, situacao: false};
     }
 
     return tarefas;
@@ -90,11 +87,48 @@
   function mostrarListaTarefas(lista){
     document.getElementById("debug").innerHTML += "</br>";
     for (i = 0; i < lista.length; i++) {
-      document.getElementById("debug").innerHTML +=  lista[i].nome+ " " + lista[i].situacao + "</br>";
+      document.getElementById("debug").innerHTML +=  lista[i].id + " " +lista[i].nome+ " " + lista[i].situacao + "</br>";
     } 
   }
 
   mostrarListaTarefas(t_fazer);
+
+  function addTarefa(){
+    var t = document.getElementById("input_add").value;
+    document.getElementById("debug").innerHTML = t;
+    
+    t_fazer.push({ id: id_generate(),nome: t, situacao: false});  
+    desenharTabela();
+    mostrarListaTarefas(t_fazer);
+
+  }
+
+  function desenharTabela() {
+    document.getElementById("todoTableBody").innerHTML = "";
+    var tabela = [];
+    document.getElementById("debug").innerHTML = t_fazer.length;
+    for (i = 0; i < t_fazer.length; i++) {
+
+        tabela.push("<tr>");
+        
+            tabela.push("<td>" + t_fazer[i].nome + "</td>");
+            tabela.push("<td>" + "<td><img src='done.jpg' height='20' width='20' onclick='finaliza_tarefa()'></td>");
+            tabela.push("<td><img src='delete.jpg' height='20' width='20'></td>");
+            tabela.push("<td><img src='edit.jpg' height='20' width='20'></td>");
+            
+             
+
+        tabela.push("</tr>");
+      }
+
+        tabela.push("<tr>");
+          tabela.push("<td colspan='2'><input id='input_add' type='text' name='lname'></td>");
+          tabela.push("<td><img src='add.jpg' height='20' width='20' onclick='addTarefa()'></td>");
+        tabela.push("</tr>");
+    
+    document.getElementById("todoTableBody").innerHTML = tabela.join("");
+}
+
 
 
 
