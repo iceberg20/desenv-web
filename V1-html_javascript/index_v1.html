@@ -1,161 +1,166 @@
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <title>Todo List</title>
+    <title >Todo List</title>
   </head>
   <body >
 
   <div style="background-color:Crimson">
     <h3 style="color:white">Todo List</h3>
   </div>
+                <table id="todoTable" border="1" border-collapse="collapse" style="width:60%">
+                <h3> Tarefas </h3>
+            <thead>
+                <tr>
+                    <th>Situação</th>
+                    <th>Descricão</th>
+                    <th>Atribuição</th>
+                    <th>Prazo</th>
+                    <th><img src="edit.jpg" alt="Smiley face" height="20" width="20"></th>
+                    <th><img src="delete.jpg" alt="Smiley face" height="20" width="20"></th>                    
+                </tr>
+            </thead>
 
-  <table  border="1" border-collapse="collapse" style="width:35%">
-  <thead>
-    <tr>
-      <th colspan="1" align="left"">A fazer</th>
-      <th colspan="1" align="left"">Finalizar Tarefa</th>
-      <th colspan="2" align="left""></th>
-    </tr>
-  </thead>
-    <tbody id="todoTableBody">
-    </tbody>
-</table>
+            <tbody id="todoTableBody">
+            </tbody>
+        </table>
 
+        <br />
+                <h3> Adicionar </h3>
+         
 
-  </br>
-
-  <table  border="1" border-collapse="collapse" style="width:35%">
-  <tr>
-    <th colspan="3" align="left">Feito</th>
-  </tr>
-  <tr>
-    <td>Pagar Internet</td>
-    <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
-    <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
-  </tr>
-  <tr>
-    <td>Alugar carro</td> 
-
-    <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
-    <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
-  </tr>
-  <tr>
-    <td>Comprar remédio</td> 
-    <td><img src="delete.jpg" alt="Smiley face" height="20" width="20"></td>
-    <td><img src="edit.jpg" alt="Smiley face" height="20" width="20"></td>
-  </tr>
-</table>
-
-<div id="debug"> </div>
-
-<script>
-  var t_fazer = tarefas_fazer();
-  var t_feita;
-
-desenharTabela();
-
-var id = 10;
-function id_increment(){
-  id+=1;
-}
-function id_generate(){
-  return id+=1;
-}  
-
- 
-
-
-
-
-
-  
-  // Retina lista de tarefas a fazer
-  function tarefas_fazer(){
-    var tarefas = []; 
-
-    for (i = 0; i < 10; i++) {
-      tarefas[i] = {id: i+1, nome: "Estudar" + i, situacao: false};
-    }
-
-    return tarefas;
-  }
-
-  // Utils
-  function mostrarListaTarefas(lista){
-    document.getElementById("debug").innerHTML += "</br>";
-    for (i = 0; i < lista.length; i++) {
-      document.getElementById("debug").innerHTML +=  lista[i].id + " " +lista[i].nome+ " " + lista[i].situacao + "</br>";
-    } 
-  }
-
-  mostrarListaTarefas(t_fazer);
-
-  function addTarefa(){
-    var t = document.getElementById("input_add").value;
-    document.getElementById("debug").innerHTML = t;
-    
-    t_fazer.push({ id: id_generate(),nome: t, situacao: false});  
-    desenharTabela();
-    mostrarListaTarefas(t_fazer);
-
-  }
-
-  function desenharTabela() {
-    document.getElementById("todoTableBody").innerHTML = "";
-    var tabela = [];
-    document.getElementById("debug").innerHTML = t_fazer.length;
-    for (i = 0; i < t_fazer.length; i++) {
-
-        tabela.push("<tr>");
-        
-            tabela.push("<td>" + t_fazer[i].nome + "</td>");
-            tabela.push("<td>" + "<td><img src='done.jpg' height='20' width='20' onclick='finaliza_tarefa()'></td>");
-            tabela.push("<td><img src='delete.jpg' height='20' width='20'></td>");
-            tabela.push("<td><img src='edit.jpg' height='20' width='20'></td>");
-            
-             
-
-        tabela.push("</tr>");
-      }
-
-        tabela.push("<tr>");
-          tabela.push("<td colspan='2'><input id='input_add' type='text' name='lname'></td>");
-          tabela.push("<td><img src='add.jpg' height='20' width='20' onclick='addTarefa()'></td>");
-        tabela.push("</tr>");
-    
-    document.getElementById("todoTableBody").innerHTML = tabela.join("");
-}
+         
+                <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" />
+                                <td><label for="atribuicao">Atribuição:</label></td>
+                <input type="text" id="atribuicao" />
+     
+                <label for="prazo">Prazo:</label>
+                <input type="date" id="prazo" /> 
+      
+                <button onclick="adicionarTarefa()">Adicionar Tarefa</button>
 
 
 
 
 
 
+        <script>
+            var listaDeTarefas = new Array;
 
 
-    //  var tarefa = new Tarefa('Estudar', true);
-     // alert(tarefa.feito);
+                desenharTabela();
+   
 
 
 
+            function desenharTabela() {
+                document.getElementById('todoTableBody').innerHTML = '';
 
-// function myFunction() {
-//   // Get the checkbox
-//   var checkBox = document.getElementById("myCheck");
-//   // Get the output text
-//   var elemento = document.getElementById("tarefa");
+                var tabela = [];
 
-//   // If the checkbox is checked, display the output text
-//   if (checkBox.checked == true){
-//     elemento.style.display = "none";
-//   } 
-// }
+                for (i = 0; i < listaDeTarefas.length; i++) {
+                    tabela.push('<tr>');
 
+                    if (!listaDeTarefas[i].terminada && !listaDeTarefas[i].atualiza) {
+                        tabela.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()"></td>');
+                        tabela.push('<td>' + listaDeTarefas[i].descricao + '</td>');
+                        tabela.push('<td>' + listaDeTarefas[i].atribuicao + '</td>');
+                        tabela.push('<td>' + formatarData(listaDeTarefas[i].prazo) + '</td>');
+                    } else if (listaDeTarefas[i].atualiza) {
+                        if (listaDeTarefas[i].terminada) {
+                            tabela.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick="" checked></td>');
+                        } else {
+                            tabela.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick=""></td>');
+                        }
+                        tabela.push('<td><input id="alteraDescricao" type="text" value="' + listaDeTarefas[i].descricao + '"></td>');
+                        tabela.push('<td><input id="alteraAtribuicao" type="text" value="' + listaDeTarefas[i].atribuicao + '"></td>');
+                        tabela.push('<td><input id="alteraPrazo" type="date" value="' + listaDeTarefas[i].prazo + '"></td>');
+                        tabela.push('<td><button value="' + i + '" onclick="alterarTarefa()">Alterar</button></td>');
+                        tabela.push('<td><button value="' + i + '" onclick="cancelarEditarTarefa()">Cancelar</button></td>');
+                        tabela.push('</tr>');
+                        continue;
+                    } else {
+                        tabela.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()" checked></td>');
+                        tabela.push('<td><strike>' + listaDeTarefas[i].descricao + '</strike></td>');
+                        tabela.push('<td><strike>' + listaDeTarefas[i].atribuicao + '</strike></td>');
+                        tabela.push('<td><strike>' + formatarData(listaDeTarefas[i].prazo) + '</strike></td>');
+                    }
 
-</script>
+                    tabela.push('<td><button value="' + i + '" onclick="marcaEditarTarefa()">Editar</button></td>');
+                    tabela.push('<td><button value="' + i + '" onclick="deletarTarefa()">Apagar</button></td>');
+                    tabela.push('</tr>');
+                }
+                document.getElementById('todoTableBody').innerHTML = tabela.join('');
+            }
 
-</body>
+            function adicionarTarefa() {
+                listaDeTarefas.push({
+                    descricao: document.getElementById('descricao').value,
+                    prazo: document.getElementById('prazo').value,
+                    atribuicao: document.getElementById('atribuicao').value,
+                    terminada: false,
+                    atualiza: false
+                });
+
+                document.getElementById('descricao').value = '';
+                document.getElementById('prazo').value = '';
+                document.getElementById('atribuicao').value = '';
+
+                desenharTabela();
+            }
+
+            function deletarTarefa() {
+                listaDeTarefas.splice(parseInt(event.srcElement.value), 1);
+
+                desenharTabela();
+            }
+
+            function completarTarefa() {
+                listaDeTarefas[parseInt(event.srcElement.value)].terminada = true;
+
+                desenharTabela();
+            }
+            function marcaEditarTarefa() {
+                listaDeTarefas[parseInt(event.srcElement.value)].atualiza = true;
+
+                desenharTabela();
+            }
+            function cancelarEditarTarefa() {
+                listaDeTarefas[parseInt(event.srcElement.value)].atualiza = false;
+
+                desenharTabela();
+            }
+
+            function alterarTarefa() {
+                var tarefa = listaDeTarefas[parseInt(event.srcElement.value)];
+
+                tarefa.descricao = document.getElementById('alteraDescricao').value;
+                tarefa.atribuicao = document.getElementById('alteraAtribuicao').value;
+                tarefa.prazo = document.getElementById('alteraPrazo').value;
+
+                if (document.getElementById('alteraTerminada').checked) {
+                    tarefa.terminada = true;
+                } else {
+                    tarefa.terminada = false;
+                }
+
+                tarefa.atualiza = false;
+
+                desenharTabela();
+            }
+
+            function formatarData(data) {
+                var dataDividida = data.split("-");
+
+                return dataDividida[2] + '/' + dataDividida[1] + '/' + dataDividida[0];
+            }
+
+        </script> 
+    </body>
 </html>
+
