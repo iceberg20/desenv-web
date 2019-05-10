@@ -25,7 +25,7 @@
                 </tr>
             </thead>
 
-            <tbody id="todoTableBody">
+            <tbody id="tarefasTableBody">
             </tbody>
         </table>
 
@@ -53,13 +53,13 @@
             var listaDeTarefas = new Array;
 
 
-                desenharTabela();
+                drawTable();
    
 
 
 
-            function desenharTabela() {
-                document.getElementById('todoTableBody').innerHTML = '';
+            function drawTable() {
+                document.getElementById('tarefasTableBody').innerHTML = '';
 
                 var tabela = [];
 
@@ -95,7 +95,7 @@
                     tabela.push('<td><button value="' + i + '" onclick="deletarTarefa()">Apagar</button></td>');
                     tabela.push('</tr>');
                 }
-                document.getElementById('todoTableBody').innerHTML = tabela.join('');
+                document.getElementById('tarefasTableBody').innerHTML = tabela.join('');
             }
 
             function adicionarTarefa() {
@@ -111,29 +111,29 @@
                 document.getElementById('prazo').value = '';
                 document.getElementById('atribuicao').value = '';
 
-                desenharTabela();
+                drawTable();
             }
 
             function deletarTarefa() {
                 listaDeTarefas.splice(parseInt(event.srcElement.value), 1);
 
-                desenharTabela();
+                drawTable();
             }
 
             function completarTarefa() {
                 listaDeTarefas[parseInt(event.srcElement.value)].terminada = true;
 
-                desenharTabela();
+                drawTable();
             }
             function marcaEditarTarefa() {
                 listaDeTarefas[parseInt(event.srcElement.value)].atualiza = true;
 
-                desenharTabela();
+                drawTable();
             }
             function cancelarEditarTarefa() {
                 listaDeTarefas[parseInt(event.srcElement.value)].atualiza = false;
 
-                desenharTabela();
+                drawTable();
             }
 
             function alterarTarefa() {
@@ -151,7 +151,7 @@
 
                 tarefa.atualiza = false;
 
-                desenharTabela();
+                drawTable();
             }
 
             function formatarData(data) {
