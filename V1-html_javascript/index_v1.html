@@ -12,38 +12,35 @@
   <div style="background-color:Crimson">
     <h3 style="color:white">Todo List</h3>
   </div>
-                <table id="todoTable" border="1" border-collapse="collapse" style="width:60%">
-                <h3> Tarefas </h3>
-            <thead>
-                <tr>
-                    <th>Situação</th>
-                    <th>Descricão</th>
-                    <th>Atribuição</th>
-                    <th>Prazo</th>
-                    <th><img src="edit.jpg" alt="Smiley face" height="20" width="20"></th>
-                    <th><img src="delete.jpg" alt="Smiley face" height="20" width="20"></th>                    
-                </tr>
-            </thead>
 
+    <h3> Tarefas </h3>    
+    <table id="todoTable" border="1" border-collapse="collapse" style="width:60%">
+        <thead>
+            <tr>
+                <th>Situação</th>
+                <th>Descricão</th>
+                <th>Atribuição</th>
+                <th>Prazo</th>
+                <th><img src="edit.jpg" alt="Smiley face" height="20" width="20"></th>
+                <th><img src="delete.jpg" alt="Smiley face" height="20" width="20"></th>                    
+            </tr>
+        </thead>
             <tbody id="tarefasTableBody">
             </tbody>
         </table>
 
         <br />
-                <h3> Adicionar </h3>
-         
+       <h3> Adicionar </h3>       
 
-         
-                <label for="descricao">Descrição:</label>
-                <input type="text" id="descricao" />
-                                <td><label for="atribuicao">Atribuição:</label></td>
-                <input type="text" id="atribuicao" />
-     
-                <label for="prazo">Prazo:</label>
-                <input type="date" id="prazo" /> 
-      
-                <button onclick="adicionarTarefa()">Adicionar Tarefa</button>
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" />
+                        <td><label for="atribuicao">Atribuição:</label></td>
+        <input type="text" id="atribuicao" />
 
+        <label for="prazo">Prazo:</label>
+        <input type="date" id="prazo" /> 
+
+        <button onclick="adicionarTarefa()">Adicionar Tarefa</button>
 
     </body>
 
