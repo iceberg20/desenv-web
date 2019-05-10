@@ -12,182 +12,130 @@
     <h3 style="color:white">Todo List</h3>
   </div>
 
-  <table  border="1" border-collapse="collapse" style="width:35%">
-  <thead>
-    <tr>
-      <th colspan="1" align="left"">A fazer</th>
-      <th colspan="1" align="left"">Finalizar Tarefa</th>
-      <th colspan="2" align="left""></th>
-    </tr>
-  </thead>
-    <tbody id="todoTableBody">
-    </tbody>
-</table>
+  <body>
 
 
-  </br>
+<h2> Tarefas </h2>
+        <table id="todoTable" border="1">
+            <thead>
+                <tr>
+                    <th>Feito</th>
+                    <th>Descricão</th>
+                    <th>Editar</th>
+                    <th>Apagar</th>                       
+                </tr>
+            </thead>
 
-  <table  border="1" border-collapse="collapse" style="width:35%">
-    <thead>
-      <tr>
-        <th colspan="3" align="left">Feito</th>
-      </tr>
-    </thead>
-    <tbody id="todoTableBodyFeito">
-    </tbody>
-  <tr>
+            <tbody id="todoTableBody">
+            </tbody>
+        </table>
 
-</table>
+        <br>
+        <br>
 
-<div id="debug"> </div>
-
-<script>
-  var t_fazer = [];
-  var t_feita = [];
-
-desenharTabela();
-
-var id = 10;
-function id_increment(){
-  id+=1;
-}
-function id_generate(){
-  return id+=1;
-}  
-
-   
-  // Retina lista de tarefas a fazer
-  function tarefas_fazer(){
-    var tarefas = []; 
-
-    for (i = 0; i < 1; i++) {
-      tarefas[i] = {id: i+1, nome: "Estudar" + i, situacao: false};
-    }
-
-    return tarefas;
-  }
-
-  // Utils
-  function mostrarListaTarefas(lista){
-    document.getElementById("debug").innerHTML += "</br>";
-    for (i = 0; i < lista.length; i++) {
-      document.getElementById("debug").innerHTML +=  lista[i].id + " " +lista[i].nome+ " " + lista[i].situacao + "</br>";
-    } 
-  }
-
-  mostrarListaTarefas(t_fazer);
-
-  function addTarefa(){
-    var t = document.getElementById("input_add").value;
-    document.getElementById("debug").innerHTML = t;
-    
-    t_fazer.push({ id: id_generate(),nome: t, situacao: false});  
-    desenharTabela();
-    mostrarListaTarefas(t_fazer);
-
-  }
-
-  function desenharTabela() {
-    document.getElementById("todoTableBody").innerHTML = "";
-    var tabela = [];
-    document.getElementById("debug").innerHTML = t_fazer.length;
-    for (i = 0; i < t_fazer.length; i++) {
-
-        tabela.push("<tr id=r"+i+">");
-        
-            tabela.push("<td>" + t_fazer[i].nome + "</td>");
-            tabela.push("<td><td><img id="+i+" src='done.jpg' height='20' width='20' onclick='finaliza_tarefa(this.id)'></td>");
-            tabela.push("<td><img src='delete.jpg' height='20' width='20'></td>");
-            tabela.push("<td><img src='edit.jpg' height='20' width='20'></td>");
-            
-             
-
-        tabela.push("</tr>");
-      }
-
-        tabela.push("<tr>");
-          tabela.push("<td colspan='2'><input id='input_add' type='text' name='lname'></td>");
-          tabela.push("<td><img src='add.jpg' height='20' width='20' onclick='addTarefa()'></td>");
-        tabela.push("</tr>");
-    
-    document.getElementById("todoTableBody").innerHTML = tabela.join("");
-}
-
-  function desenharTabelaFeito() {
-    document.getElementById("todoTableBodyFeito").innerHTML = "";
-
-    
-    var tabelaFeito = [];
-    document.getElementById("debug").innerHTML = t_feita.length;
-    for (i = 0; i < t_feita.length; i++) {
-
-        tabelaFeito.push("<tr id=rf"+i+">");
-        
-            tabelaFeito.push("<td>" + t_feita[i].nome + "</td>");
-            tabelaFeito.push("<td><td><img id=i"+i+" src='done.jpg' height='20' width='20' onclick='finaliza_tarefa(this.id)'></td>");
-            tabelaFeito.push("<td><img src='delete.jpg' height='20' width='20'></td>");
-            tabelaFeito.push("<td><img src='edit.jpg' height='20' width='20'></td>");
-
-        tabelaFeito.push("</tr>");
-      }
-
-        tabelaFeito.push("<tr>");
-          tabelaFeito.push("<td colspan='2'><input id='input_add' type='text' name='lname'></td>");
-          tabelaFeito.push("<td><img src='add.jpg' height='20' width='20' onclick='addTarefa()'></td>");
-        tabelaFeito.push("</tr>");
-    
-    document.getElementById("todoTableBodyFeito").innerHTML = tabelaFeito.join("");
-}
-
-
-function finaliza_tarefa(t_id){
-   document.getElementById("debug").innerHTML = t_id;
-  // document.getElementById("r"+t_id).innerHTML = "";
- //  document.getElementById("rf"+t_id).innerHTML = "";
-
-  //Remove da lista
-  t_fazer.splice(t_id, 1);
-  
-
-  //Adiciona na lista de feitos
-  t_feita.push({id: t_id, nome: "Estudar", situacao: false});
-  mostrarListaTarefas(t_feita);
-
- desenharTabelaFeito(t_feita);
-  console.log(t_feita);
-  //desenharTabela(t_fazer);
-
-
-  //t_fazer.indexOf(elem);
-
-}
+       <table border="1" border-collapse="collapse" style="width:35%">
+            <tr>
+                <th colspan="3" >Adicionar</th>
+            </tr>
+            <tr>
+                <td><label for="descricao">Tarefa:</label></td>
+                <td><input type="text" id="descricao" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><button onclick="adicionarTarefa()">Inserir Tarefa</button></td>
+            </tr>
+        </table>
 
 
 
+        <script>
+            var listaTarefas = [];            
 
+            function drawTable() {
+                document.getElementById('todoTableBody').innerHTML = '';
 
+                var tabela = [];
 
+                for (i = 0; i < listaTarefas.length; i++) {
+                    tabela.push('<tr>');
 
-    //  var tarefa = new Tarefa('Estudar', true);
-     // alert(tarefa.feito);
+                    if (!listaTarefas[i].terminada && !listaTarefas[i].atualiza) {
+                        tabela.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()"></td>');
+                        tabela.push('<td>' + listaTarefas[i].descricao + '</td>');
+                    } else if (listaTarefas[i].atualiza) {
+                        if (listaTarefas[i].terminada) {
+                            tabela.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick="" checked></td>');
+                        } else {
+                            tabela.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick=""></td>');
+                        }
+                        tabela.push('<td><input id="alteraDescricao" type="text" value="' + listaTarefas[i].descricao + '"></td>');
+                        tabela.push('<td><button value="' + i + '" onclick="salvarTarefa()">Salvar</button></td>');
+                        tabela.push('<td><button value="' + i + '" onclick="cancelarEditarTarefa()">Cancelar</button></td>');
+                        tabela.push('</tr>');
+                        continue;
+                    } else {
+                        tabela.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()" checked></td>');
+                        tabela.push('<td><strike>' + listaTarefas[i].descricao + '</strike></td>');
+                    }
 
+                    tabela.push('<td><button value="' + i + '" onclick="marcaEditarTarefa()">Editar</button></td>');
+                    tabela.push('<td><button value="' + i + '" onclick="deletarTarefa()">Apagar</button></td>');
+                    tabela.push('</tr>');
+                }
+                document.getElementById('todoTableBody').innerHTML = tabela.join('');
+            }
 
+            //Desenha a Table com as tarefas
+            drawTable();
 
+            function deletarTarefa() {
+                listaTarefas.splice(parseInt(event.srcElement.value), 1);
 
-// function myFunction() {
-//   // Get the checkbox
-//   var checkBox = document.getElementById("myCheck");
-//   // Get the output text
-//   var elemento = document.getElementById("tarefa");
+                drawTable();
+            }
 
-//   // If the checkbox is checked, display the output text
-//   if (checkBox.checked == true){
-//     elemento.style.display = "none";
-//   } 
-// }
+            function completarTarefa() {
+                listaTarefas[parseInt(event.srcElement.value)].terminada = true;
 
+                drawTable();
+            }
+            function marcaEditarTarefa() {
+                listaTarefas[parseInt(event.srcElement.value)].atualiza = true;
 
-</script>
+                drawTable();
+            }
+            function cancelarEditarTarefa() {
+                listaTarefas[parseInt(event.srcElement.value)].atualiza = false;
 
-</body>
+                drawTable();
+            }
+
+            function adicionarTarefa() {
+                listaTarefas.push({
+                    descricao: document.getElementById('descricao').value,
+                    terminada: false,
+                    atualiza: false
+                });
+
+                document.getElementById('descricao').value = '';
+                drawTable();
+            }
+
+            function salvarTarefa() {
+                var t = listaTarefas[parseInt(event.srcElement.value)];
+
+                t.descricao = document.getElementById('alteraDescricao').value;
+
+                if (document.getElementById('alteraTerminada').checked) {
+                    t.terminada = true;
+                } else {
+                    t.terminada = false;
+                }
+
+                t.atualiza = false;
+
+                drawTable();
+            }
+        </script> 
+    </body>
 </html>
