@@ -50,7 +50,7 @@
 
 
         <script>
-            var listaDeTarefas = new Array;
+            var lTarefas = new Array;
 
 
                 drawTable();
@@ -61,45 +61,45 @@
             function drawTable() {
                 document.getElementById('tarefasTableBody').innerHTML = '';
 
-                var tabela = [];
+                var t = [];
 
-                for (i = 0; i < listaDeTarefas.length; i++) {
-                    tabela.push('<tr>');
+                for (i = 0; i < lTarefas.length; i++) {
+                    t.push('<tr>');
 
-                    if (!listaDeTarefas[i].terminada && !listaDeTarefas[i].atualiza) {
-                        tabela.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()"></td>');
-                        tabela.push('<td>' + listaDeTarefas[i].descricao + '</td>');
-                        tabela.push('<td>' + listaDeTarefas[i].atribuicao + '</td>');
-                        tabela.push('<td>' + formatarData(listaDeTarefas[i].prazo) + '</td>');
-                    } else if (listaDeTarefas[i].atualiza) {
-                        if (listaDeTarefas[i].terminada) {
-                            tabela.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick="" checked></td>');
+                    if (!lTarefas[i].atualiza && !lTarefas[i].terminada) {
+                        t.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()"></td>');
+                        t.push('<td>' + lTarefas[i].descricao + '</td>');
+                        t.push('<td>' + lTarefas[i].atribuicao + '</td>');
+                        t.push('<td>' + formatDate(lTarefas[i].prazo) + '</td>');
+                    } else if (lTarefas[i].atualiza) {
+                        if (lTarefas[i].terminada) {
+                            t.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick="" checked></td>');
                         } else {
-                            tabela.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick=""></td>');
+                            t.push('<td><input id="alteraTerminada" type="checkbox" value="' + i + '" onclick=""></td>');
                         }
-                        tabela.push('<td><input id="alteraDescricao" type="text" value="' + listaDeTarefas[i].descricao + '"></td>');
-                        tabela.push('<td><input id="alteraAtribuicao" type="text" value="' + listaDeTarefas[i].atribuicao + '"></td>');
-                        tabela.push('<td><input id="alteraPrazo" type="date" value="' + listaDeTarefas[i].prazo + '"></td>');
-                        tabela.push('<td><button value="' + i + '" onclick="alterarTarefa()">Alterar</button></td>');
-                        tabela.push('<td><button value="' + i + '" onclick="cancelarEditarTarefa()">Cancelar</button></td>');
-                        tabela.push('</tr>');
+                        t.push('<td><input id="alteraDescricao" type="text" value="' + lTarefas[i].descricao + '"></td>');
+                        t.push('<td><input id="alteraAtribuicao" type="text" value="' + lTarefas[i].atribuicao + '"></td>');
+                        t.push('<td><input id="alteraPrazo" type="date" value="' + lTarefas[i].prazo + '"></td>');
+                        t.push('<td><button value="' + i + '" onclick="alterarTarefa()">Alterar</button></td>');
+                        t.push('<td><button value="' + i + '" onclick="cancelarEditarTarefa()">Cancelar</button></td>');
+                        t.push('</tr>');
                         continue;
                     } else {
-                        tabela.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()" checked></td>');
-                        tabela.push('<td><strike>' + listaDeTarefas[i].descricao + '</strike></td>');
-                        tabela.push('<td><strike>' + listaDeTarefas[i].atribuicao + '</strike></td>');
-                        tabela.push('<td><strike>' + formatarData(listaDeTarefas[i].prazo) + '</strike></td>');
+                        t.push('<td><input type="checkbox" value="' + i + '" onclick="completarTarefa()" checked></td>');
+                        t.push('<td><strike>' + lTarefas[i].descricao + '</strike></td>');
+                        t.push('<td><strike>' + lTarefas[i].atribuicao + '</strike></td>');
+                        t.push('<td><strike>' + formatDate(lTarefas[i].prazo) + '</strike></td>');
                     }
 
-                    tabela.push('<td><button value="' + i + '" onclick="marcaEditarTarefa()">Editar</button></td>');
-                    tabela.push('<td><button value="' + i + '" onclick="deletarTarefa()">Apagar</button></td>');
-                    tabela.push('</tr>');
+                    t.push('<td><button value="' + i + '" onclick="marcaEditarTarefa()">Editar</button></td>');
+                    t.push('<td><button value="' + i + '" onclick="deletarTarefa()">Apagar</button></td>');
+                    t.push('</tr>');
                 }
-                document.getElementById('tarefasTableBody').innerHTML = tabela.join('');
+                document.getElementById('tarefasTableBody').innerHTML = t.join('');
             }
 
             function adicionarTarefa() {
-                listaDeTarefas.push({
+                lTarefas.push({
                     descricao: document.getElementById('descricao').value,
                     prazo: document.getElementById('prazo').value,
                     atribuicao: document.getElementById('atribuicao').value,
@@ -115,29 +115,29 @@
             }
 
             function deletarTarefa() {
-                listaDeTarefas.splice(parseInt(event.srcElement.value), 1);
+                lTarefas.splice(parseInt(event.srcElement.value), 1);
 
                 drawTable();
             }
 
             function completarTarefa() {
-                listaDeTarefas[parseInt(event.srcElement.value)].terminada = true;
+                lTarefas[parseInt(event.srcElement.value)].terminada = true;
 
                 drawTable();
             }
             function marcaEditarTarefa() {
-                listaDeTarefas[parseInt(event.srcElement.value)].atualiza = true;
+                lTarefas[parseInt(event.srcElement.value)].atualiza = true;
 
                 drawTable();
             }
             function cancelarEditarTarefa() {
-                listaDeTarefas[parseInt(event.srcElement.value)].atualiza = false;
+                lTarefas[parseInt(event.srcElement.value)].atualiza = false;
 
                 drawTable();
             }
 
             function alterarTarefa() {
-                var tarefa = listaDeTarefas[parseInt(event.srcElement.value)];
+                var tarefa = lTarefas[parseInt(event.srcElement.value)];
 
                 tarefa.descricao = document.getElementById('alteraDescricao').value;
                 tarefa.atribuicao = document.getElementById('alteraAtribuicao').value;
@@ -154,7 +154,7 @@
                 drawTable();
             }
 
-            function formatarData(data) {
+            function formatDate(data) {
                 var dataDividida = data.split("-");
 
                 return dataDividida[2] + '/' + dataDividida[1] + '/' + dataDividida[0];
