@@ -139,7 +139,7 @@
     
     function formatDate(data) {
         console.log(data);
-        var dataDividida = data.split("/");
+        var dataDividida = data.split("-");
 
         return dataDividida[2] + '/' + dataDividida[1] + '/' + dataDividida[0];
     }
