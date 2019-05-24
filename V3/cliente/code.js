@@ -1,5 +1,6 @@
 {
       var lTarefas = new Array;
+      var last;
 
       drawTable();
 
@@ -33,6 +34,22 @@
 
             }
         };          
+    }
+
+    function salvarTarefaServer(last){
+        var ajax = this.CORSRequest('POST', 'http://localhost:3000/tarefas');
+
+        ajax.setRequestHeader("Content-Type", "application/json");
+
+        ajax.send(JSON.stringify(last));
+        console.log(last);
+
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                var data = JSON.parse(ajax.responseText);
+                console.log("salvou no server");
+            }
+        }
     } 
 
     start();
@@ -78,18 +95,22 @@
     }
 
     function adicionarTarefa() {
-        lTarefas.push({
+        var last = {
             descricao: document.getElementById('descricao').value,
             prazo: document.getElementById('prazo').value,
             atribuicao: document.getElementById('atribuicao').value,
             terminada: false,
             atualiza: false
-        });
+        }; 
+
+        lTarefas.push(last);
 
         document.getElementById('descricao').value = '';
         document.getElementById('prazo').value = '';
         document.getElementById('atribuicao').value = '';
 
+
+        salvarTarefaServer(last);
         drawTable();
     }
 
@@ -117,7 +138,8 @@
     }
     
     function formatDate(data) {
-        var dataDividida = data.split("-");
+        console.log(data);
+        var dataDividida = data.split("/");
 
         return dataDividida[2] + '/' + dataDividida[1] + '/' + dataDividida[0];
     }

@@ -46,7 +46,7 @@ var getTarefas = function (req, res){
 
 //Serviços da API
 app.get('/tarefas', getTarefas);
-app.post('/task', adicionaTarefas);
+app.post('/tarefas', adicionaTarefas);
 
 //Porta padrão da aplicação
 app.listen(3000, function (){
