@@ -116,6 +116,7 @@
 
     function deletarTarefa() {
         lTarefas.splice(parseInt(event.srcElement.value), 1);
+        console.log(event.srcElement);
 
         drawTable();
     }

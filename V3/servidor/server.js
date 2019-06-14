@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var fs = require('fs');
 
-
 //App init
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,14 +38,27 @@ var adicionaTarefas = function (req, res){
 	res.send(tarefas);
 };
 
+//Deletar Tarefa ao arquivo Json
+var deletarTarefa = function (req, res){
+	tarefas = readFile();
+	tarefas.splice(parseInt(req.params.id),1);
+	escreverArquivo(tarefas);
+	res.send(tarefas);
+};
+
 var getTarefas = function (req, res){
 	tarefas = readFile();
 	res.send(tarefas);
 };
 
 //Serviços da API
+
+//Listar todas as tarefas
 app.get('/tarefas', getTarefas);
+//Adicionar adicionar uma tarefa
 app.post('/tarefas', adicionaTarefas);
+//Deletar uma tarefa
+app.delete('/tarefas/:id', deletarTarefa);
 
 //Porta padrão da aplicação
 app.listen(3000, function (){
