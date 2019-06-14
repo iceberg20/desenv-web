@@ -50,7 +50,22 @@
                 console.log("salvou no server");
             }
         }
-    } 
+    }
+
+
+    function deletarTarefaServer(id){
+    var ajax = this.CORSRequest('DELETE', 'http://localhost:3000/tarefas/'+String(id));
+
+    ajax.send();
+    console.log(id);
+
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var data = JSON.parse(ajax.responseText);
+            console.log("deletou do server");
+        }
+    }
+}  
 
     start();
 
@@ -116,6 +131,7 @@
 
     function deletarTarefa() {
         lTarefas.splice(parseInt(event.srcElement.value), 1);
+        deletarTarefaServer(event.srcElement.value);
         console.log(event.srcElement);
 
         drawTable();
