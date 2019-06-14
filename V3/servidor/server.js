@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors()); 
 
 //Inicializando tarefas vazio
-var tarefas = new Array();
+var tarefas = [];
 
 var escreverArquivo = function(tarefas) {
 	fs.writeFile('tarefas.txt', JSON.stringify(tarefas), function (err) {
