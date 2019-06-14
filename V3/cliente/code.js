@@ -55,17 +55,33 @@
 
     function deletarTarefaServer(id){
     var ajax = this.CORSRequest('DELETE', 'http://localhost:3000/tarefas/'+String(id));
+        ajax.send();
+        console.log(id);
 
-    ajax.send();
-    console.log(id);
-
-    ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
-            var data = JSON.parse(ajax.responseText);
-            console.log("deletou do server");
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                var data = JSON.parse(ajax.responseText);
+                console.log("deletou do server");
+            }
         }
-    }
-}  
+    } 
+
+
+    function editarTarefaServer(last){
+        var ajax = this.CORSRequest('PUT', 'http://localhost:3000/tarefas');
+
+        ajax.setRequestHeader("Content-Type", "application/json");
+
+        ajax.send(JSON.stringify(last));
+        console.log(last);
+
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                var data = JSON.parse(ajax.responseText);
+                console.log("editou no server");
+            }
+        }
+    } 
 
     start();
 
@@ -163,7 +179,7 @@
 
     function modificarTarefa() {
         var tarefa = lTarefas[parseInt(event.srcElement.value)];
-
+        tarefa.id = event.srcElement.value;
         tarefa.atribuicao = document.getElementById('alteraAtribuicao').value;
         tarefa.descricao = document.getElementById('alteraDescricao').value;
         tarefa.prazo = document.getElementById('alteraPrazo').value;
@@ -176,9 +192,12 @@
 
         tarefa.atualiza = false;
 
+        editarTarefaServer(tarefa);
+
         drawTable();
     }
 
 
 
 }
+

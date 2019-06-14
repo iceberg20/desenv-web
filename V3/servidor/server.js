@@ -14,20 +14,20 @@ app.use(cors());
 var tarefas = [];
 
 var escreverArquivo = function(tarefas) {
-	fs.writeFile('tarefas.txt', JSON.stringify(tarefas), function (err) {
+	fs.writeFile('tarefas.json', JSON.stringify(tarefas), function (err) {
   		if (err) throw err;
 	}); 
 };
 
 //Ler aquivo Json
 var readFile = function () {
-	return JSON.parse(fs.readFileSync('tarefas.txt'));
+	return JSON.parse(fs.readFileSync('tarefas.json'));
 };
 
 //Adiciona Tarefa ao arquivo Json
 var adicionarTarefa = function (req, res){
 	let tarefa = {
-		"situacao": req.body.situacao,
+		"terminada": req.body.terminada,
 		"descricao": req.body.descricao,
 		"atribuicao": req.body.atribuicao,
 		"prazo": req.body.prazo
@@ -56,7 +56,7 @@ var editarTarefa = function (req, res){
 	let tarefa = tarefas[parseInt(req.body.id)];
 	tarefas.splice(parseInt(req.body.id),1);
 
-	tarefa.situacao = req.body.situacao;
+	tarefa.terminada = req.body.terminada;
 	tarefa.descricao = req.body.descricao;
 	tarefa.atribuicao = req.body.atribuicao;
 	tarefa.prazo = req.body.prazo;
