@@ -25,15 +25,15 @@ var readFile = function () {
 };
 
 //Adiciona Tarefa ao arquivo Json
-var adicionaTarefas = function (req, res){
-	var task = {
+var adicionarTarefa = function (req, res){
+	let tarefa = {
 		"situacao": req.body.situacao,
 		"descricao": req.body.descricao,
 		"atribuicao": req.body.atribuicao,
 		"prazo": req.body.prazo
 	};
 	tarefas = readFile();
-	tarefas.push(task);
+	tarefas.push(tarefa);
 	escreverArquivo(tarefas);
 	res.send(tarefas);
 };
@@ -46,19 +46,36 @@ var deletarTarefa = function (req, res){
 	res.send(tarefas);
 };
 
-var getTarefas = function (req, res){
+var listarTarefas = function (req, res){
 	tarefas = readFile();
+	res.send(tarefas);
+};
+
+var editarTarefa = function (req, res){
+	tarefas = readFile();
+	let tarefa = tarefas[parseInt(req.body.id)];
+	tarefas.splice(parseInt(req.body.id),1);
+
+	tarefa.situacao = req.body.situacao;
+	tarefa.descricao = req.body.descricao;
+	tarefa.atribuicao = req.body.atribuicao;
+	tarefa.prazo = req.body.prazo;
+
+	tarefas.push(tarefa);
+	escreverArquivo(tarefas);
 	res.send(tarefas);
 };
 
 //Serviços da API
 
 //Listar todas as tarefas
-app.get('/tarefas', getTarefas);
+app.get('/tarefas', listarTarefas);
 //Adicionar adicionar uma tarefa
-app.post('/tarefas', adicionaTarefas);
+app.post('/tarefas', adicionarTarefa);
 //Deletar uma tarefa
 app.delete('/tarefas/:id', deletarTarefa);
+//Editar Tarefa
+app.put('/tarefas', editarTarefa);
 
 //Porta padrão da aplicação
 app.listen(3000, function (){
